@@ -26,8 +26,8 @@ class _HomeState extends State<Home> {
         icon,
         size: 30,
       ),
-      onTap: (){
-        if(text=="Logout"){
+      onTap: () {
+        if (text == "Logout") {
           logOut();
         }
       },
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   )),
-                  drawerItem(Icons.person,"My profile"),
+                  drawerItem(Icons.person, "My profile"),
                   drawerItem(Icons.info, "About"),
                   drawerItem(Icons.help_outline, "Help"),
                   drawerItem(Icons.exit_to_app, "Logout")
@@ -96,9 +96,7 @@ class _HomeState extends State<Home> {
         body: SingleChildScrollView(
           child: Stack(
             children: <Widget>[
-              Container(
-                child: Image.asset("assets/images/background.png"),
-              ),
+              Container(child: Image.asset("assets/images/background.png")),
               Positioned(
                   right: 5,
                   top: 40,
@@ -112,6 +110,18 @@ class _HomeState extends State<Home> {
                       scaffoldKey.currentState.openEndDrawer();
                     },
                   )),
+                  Center(child:
+                    Container(
+                      margin: EdgeInsets.only(top:70),
+                      height:150,
+                      child: Column(children: <Widget>[
+                        Image.asset("assets/images/headIcon2.png",height: 90,),
+                        Container(
+                          margin: const EdgeInsets.only(top:10),
+                          child: Text("GURU",style: TextStyle(fontSize: 30,color: Colors.blue[900]),))
+                      ],)
+                    )
+                  ),
               Center(
                 child: Container(
                   height: 450,

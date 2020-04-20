@@ -137,6 +137,18 @@ class _GuruState extends State<Guru> {
                     Container(
                       child: Image.asset("assets/images/background.png"),
                     ),
+                     Center(child:
+                    Container(
+                      margin: EdgeInsets.only(top:70),
+                      height:150,
+                      child: Column(children: <Widget>[
+                        Image.asset("assets/images/headIcon2.png",height: 90,),
+                        Container(
+                          margin: const EdgeInsets.only(top:10),
+                          child: Text("GURU",style: TextStyle(fontSize: 30,color: Colors.blue[900]),))
+                      ],)
+                    )
+                  ),
                     Center(
                       child: Container(
                         height: 370,
