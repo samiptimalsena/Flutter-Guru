@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home.dart';
+import '../screen/home.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -47,7 +47,7 @@ class _RegisterState extends State<Register> {
         controller: handler,
         validator: (String value) {
           if (text == "Email") {
-            return !value.contains("@")
+            return  !value.contains("@") || !value.endsWith(".com")
                 ? "Please enter valid email address"
                 : null;
           } else if (text == "Username") {

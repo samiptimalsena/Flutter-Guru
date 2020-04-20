@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home.dart';
-import 'register.dart';
+import './screen/home.dart';
+import './auth/register.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,15 +22,17 @@ class Guru extends StatefulWidget {
 }
 
 class _GuruState extends State<Guru> {
+  SharedPreferences sharedPreferences;
   bool _isLoading = false;
   var _obscureText = true;
   final _loginFormKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
 
   signIn(String email, String password) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences = await SharedPreferences.getInstance();
     Map data = {"email": email, "password": password};
     var response = await http.post("https://auth1234.herokuapp.com/auth/login",
         body: data);
@@ -44,6 +46,10 @@ class _GuruState extends State<Guru> {
       setState(() {
         _isLoading = false;
       });
+      _scaffoldKey.currentState.showSnackBar(new SnackBar(
+        content: new Text("Emaill and Password didn't matched"),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 
@@ -101,10 +107,25 @@ class _GuruState extends State<Guru> {
     );
   }
 
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") != null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => Home()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     var ht = MediaQuery.of(context).size.height;
     return Scaffold(
+        key: _scaffoldKey,
         //  resizeToAvoidBottomInset: false,
         body: _isLoading
             ? Center(
