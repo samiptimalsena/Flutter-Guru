@@ -120,7 +120,33 @@ class _RegisterState extends State<Register> {
               child: Stack(
                 children: <Widget>[
                   Container(
-                    child: Image.asset("assets/images/background.png"),
+                     height: MediaQuery.of(context).size.height,
+                color: Colors.grey[200],
+                child: ListView(
+                  children:[
+                    Container(
+                      height:(MediaQuery.of(context).size.height)/2.6,
+                      decoration: BoxDecoration(
+                        color: Colors.green[300],
+                        borderRadius: new BorderRadius.only(
+                          bottomLeft: const Radius.circular(40),
+                          bottomRight: const Radius.circular(40))
+                      ),
+                    )
+                  ]
+                )
+                  ),
+                  Center(child:
+                    Container(
+                      margin: EdgeInsets.only(top:70),
+                      height:150,
+                      child: Column(children: <Widget>[
+                        Image.asset("assets/images/headIcon2.png",height: 90,),
+                        Container(
+                          margin: const EdgeInsets.only(top:10),
+                          child: Text("GURU",style: TextStyle(fontSize: 30,color: Colors.blue[900]),))
+                      ],)
+                    )
                   ),
                   Center(
                     child: Container(
@@ -128,6 +154,11 @@ class _RegisterState extends State<Register> {
                       width: 290,
                       margin: new EdgeInsets.only(top: ht / 3.3),
                       decoration: BoxDecoration(
+                        boxShadow: [BoxShadow(
+                            color:Colors.grey,
+                            offset: Offset(0.0,3.0),
+                            blurRadius: 7.0
+                          )],
                           color: Colors.white,
                           borderRadius: new BorderRadius.only(
                               topLeft: const Radius.circular(100),
