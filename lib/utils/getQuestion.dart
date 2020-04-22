@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Question{
   String type;
@@ -26,7 +27,7 @@ class Question{
 }
 
 Future<List<Question>> getQuestion(String type)async{
-    var response=await http.get("https://auth1234.herokuapp.com/question/getQuestion?type="+type);
+    var response=await http.get(DotEnv().env['API']+type);
     var getData=json.decode(response.body) as List;
     List<Question> questionList=getData.map((data)=>Question.fromJson(data)).toList();
     return questionList;

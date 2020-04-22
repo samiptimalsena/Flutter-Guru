@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utils/getQuestion.dart';
+import 'result.dart';
+import 'home.dart';
 
 class Mcq extends StatefulWidget {
   final sub;
@@ -19,20 +21,43 @@ class _McqState extends State<Mcq> {
   bool check3 = false;
   bool check4 = false;
   bool answered = false;
+  bool completed = false;
 
   checkAnswer() {
-    if (answer.toLowerCase() ==
-        questionList[qCount].correctAnswer.toLowerCase()) {
-      setState(() {
-        score++;
-        qCount++;
-        check1 = check2 = check3 = check4 = false;
-      });
-    } else {
-      setState(() {
-        score--;
-      });
+    if (completed) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => Home()),
+          (Route<dynamic> route) => false);
+    }else{
+    if (qCount < 15) {
+      if (answer.toLowerCase() ==
+          questionList[qCount].correctAnswer.toLowerCase()) {
+        setState(() {
+          score++;
+          qCount++;
+          check1 = check2 = check3 = check4 = false;
+        });
+      } else {
+        setState(() {
+          qCount++;
+          check1 = check2 = check3 = check4 = false;
+        });
+      }
     }
+    if (qCount == 15) {
+      if (answer.toLowerCase() ==
+          questionList[qCount].correctAnswer.toLowerCase()) {
+        setState(() {
+          qCount=14;
+          score++;
+          completed = true;
+        });
+      }
+      setState(() {
+        qCount=14;
+        completed = true;
+      });
+    }}
   }
 
   toggleCheckBox(int n, String ans) {
@@ -91,20 +116,19 @@ class _McqState extends State<Mcq> {
   }
 
   Widget optionHolder(String option, int n, bool check) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          Checkbox(
-            value: check,
-            onChanged: (value) {
-              toggleCheckBox(n, option);
-            },
-            activeColor: Colors.green,
-          ),
-          Text(option)
-        ],
-      ),
+    return Row(
+      children: <Widget>[
+        Checkbox(
+          value: check,
+          onChanged: (value) {
+            toggleCheckBox(n, option);
+          },
+          activeColor: Colors.green,
+        ),
+        Flexible(
+          child: Text(option),
+        )
+      ],
     );
   }
 
@@ -155,7 +179,7 @@ class _McqState extends State<Mcq> {
                           child: Text(
                             "GURU",
                             style: TextStyle(
-                                fontSize: 30, color: Colors.blue[900]),
+                                fontSize: 30, color: Colors.blue[900],fontWeight: FontWeight.w500),
                           ))
                     ],
                   ))),
@@ -183,7 +207,7 @@ class _McqState extends State<Mcq> {
                       child: Container(
                           margin: const EdgeInsets.only(bottom: 15, top: 35),
                           child: Text(
-                            (qCount + 1).toString(),
+                            (qCount+1 ).toString() + " /15",
                             style: TextStyle(fontSize: 18),
                           ))),
                   Divider(
@@ -209,59 +233,67 @@ class _McqState extends State<Mcq> {
                                 bottomRight: const Radius.circular(5))),
                         child: questionList == null
                             ? Center(child: CircularProgressIndicator())
-                            : Container(
-                                alignment: Alignment.topCenter,
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  height: 250,
-                                  width: 190,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: Text(
-                                          questionList[qCount].que,
-                                          style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 15),
-                                        ),
+                            : completed
+                                ? Result(questionList, score)
+                                : Container(
+                                    alignment: Alignment.topCenter,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      margin: const EdgeInsets.only(top: 20),
+                                      height: 270,
+                                      width: 190,
+                                      child: ListView(
+                                        padding: EdgeInsets.zero,
+                                        children: <Widget>[
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 5),
+                                            child: Text(
+                                              questionList[qCount].que,
+                                              style: TextStyle(
+                                                  color: Colors.black54,
+                                                  fontSize: 15),
+                                            ),
+                                          ),
+                                          Divider(
+                                            thickness: 2,
+                                            color: Colors.black12,
+                                            indent: 10,
+                                            endIndent: 10,
+                                          ),
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                optionHolder(
+                                                    questionList[qCount]
+                                                        .option1,
+                                                    1,
+                                                    check1),
+                                                optionHolder(
+                                                    questionList[qCount]
+                                                        .option2,
+                                                    2,
+                                                    check2),
+                                                optionHolder(
+                                                    questionList[qCount]
+                                                        .option3,
+                                                    3,
+                                                    check3),
+                                                optionHolder(
+                                                    questionList[qCount]
+                                                        .option4,
+                                                    4,
+                                                    check4),
+                                              ],
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                      Divider(
-                                        thickness: 2,
-                                        color: Colors.black12,
-                                        indent: 10,
-                                        endIndent: 10,
-                                      ),
-                                      Container(
-                                        alignment: Alignment.centerLeft,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            optionHolder(
-                                                questionList[qCount].option1,
-                                                1,
-                                                check1),
-                                            optionHolder(
-                                                questionList[qCount].option2,
-                                                2,
-                                                check2),
-                                            optionHolder(
-                                                questionList[qCount].option3,
-                                                3,
-                                                check3),
-                                            optionHolder(
-                                                questionList[qCount].option4,
-                                                4,
-                                                check4),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )),
+                                    ),
+                                  )),
                   ),
                   Row(
                     children: <Widget>[

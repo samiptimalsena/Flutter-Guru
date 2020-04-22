@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../main.dart';
+import '../auth/login.dart';
 import 'mcq.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
     sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.clear();
     Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (BuildContext context) => Guru()),
+        MaterialPageRoute(builder: (BuildContext context) => Login()),
         (Route<dynamic> route) => false);
   }
 
@@ -39,12 +39,13 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget imageHolder(
-      String path, String text, double margin, double imgHeight,String subject) {
+  Widget imageHolder(String path, String text, double margin, double imgHeight,
+      String subject) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (BuildContext context) => Mcq(subject)));
+      Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => Mcq(subject)));
+           
       },
       child: Container(
         margin: EdgeInsets.fromLTRB(margin, 40, 0, 0),
@@ -97,23 +98,19 @@ class _HomeState extends State<Home> {
           child: Stack(
             children: <Widget>[
               Container(
-                height: MediaQuery.of(context).size.height,
-                color: Colors.grey[200],
-                child: ListView(
-                  children:[
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.grey[200],
+                  child: ListView(children: [
                     Container(
-                      height:(MediaQuery.of(context).size.height)/2.6,
+                      height: (MediaQuery.of(context).size.height) / 2.6,
                       decoration: BoxDecoration(
-                        color: Colors.green[300],
-                        borderRadius: new BorderRadius.only(
-                          bottomLeft: const Radius.circular(40),
-                          bottomRight: const Radius.circular(40))
-                      ),
+                          color: Colors.green[300],
+                          borderRadius: new BorderRadius.only(
+                              bottomLeft: const Radius.circular(40),
+                              bottomRight: const Radius.circular(40))),
                     )
-                  ]
-                )
-                //child: Image.asset("assets/images/background.png")
-                ),
+                  ])
+                  ),
               Positioned(
                   right: 5,
                   top: 40,
@@ -127,29 +124,37 @@ class _HomeState extends State<Home> {
                       scaffoldKey.currentState.openEndDrawer();
                     },
                   )),
-                  Center(child:
-                    Container(
-                      margin: EdgeInsets.only(top:70),
-                      height:150,
-                      child: Column(children: <Widget>[
-                        Image.asset("assets/images/headIcon2.png",height: 90,),
-                        Container(
-                          margin: const EdgeInsets.only(top:10),
-                          child: Text("GURU",style: TextStyle(fontSize: 30,color: Colors.blue[900]),))
-                      ],)
-                    )
-                  ),
+              Center(
+                  child: Container(
+                      margin: EdgeInsets.only(top: 70),
+                      height: 150,
+                      child: Column(
+                        children: <Widget>[
+                          Image.asset(
+                            "assets/images/headIcon2.png",
+                            height: 90,
+                          ),
+                          Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "GURU",
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.blue[900],fontWeight: FontWeight.w500),
+                              ))
+                        ],
+                      ))),
               Center(
                 child: Container(
                   height: 450,
                   width: 290,
                   margin: new EdgeInsets.only(top: ht / 3.3),
                   decoration: BoxDecoration(
-                    boxShadow: [BoxShadow(
-                            color:Colors.grey,
-                            offset: Offset(0.0,3.0),
-                            blurRadius: 7.0
-                          )],
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 3.0),
+                            blurRadius: 7.0)
+                      ],
                       color: Colors.white,
                       borderRadius: new BorderRadius.only(
                           topLeft: const Radius.circular(100),
@@ -173,16 +178,18 @@ class _HomeState extends State<Home> {
                       ),
                       Wrap(
                         children: <Widget>[
+                          imageHolder("assets/images/chem.png", "Chemistry", 40,
+                              60, "Chemistry"),
+                          imageHolder("assets/images/phys.png", "Physics", 80,
+                              60, "Physics"),
+                          imageHolder("assets/images/math.png", "Math", 45, 60,
+                              "Physics"),
+                          imageHolder("assets/images/bio2.png", "Biology", 85,
+                              60, "Physics"),
+                          imageHolder("assets/images/comp2.png", "Computer", 40,
+                              50, "Physics"),
                           imageHolder(
-                              "assets/images/chem.png", "Chemistry", 40, 60,"Physics"),
-                          imageHolder(
-                              "assets/images/phys.png", "Physics", 80, 60,"Physics"),
-                          imageHolder("assets/images/math.png", "Math", 45, 60,"Physics"),
-                          imageHolder(
-                              "assets/images/bio2.png", "Biology", 85, 60,"Physics"),
-                          imageHolder(
-                              "assets/images/comp2.png", "Computer", 40, 50,"Physics"),
-                          imageHolder("assets/images/quiz3.png", "Quiz", 80, 55,"Physics")
+                              "assets/images/quiz3.png", "Quiz", 80, 55, "Chemistry")
                         ],
                       )
                     ],

@@ -144,7 +144,7 @@ class _RegisterState extends State<Register> {
                         Image.asset("assets/images/headIcon2.png",height: 90,),
                         Container(
                           margin: const EdgeInsets.only(top:10),
-                          child: Text("GURU",style: TextStyle(fontSize: 30,color: Colors.blue[900]),))
+                          child: Text("GURU",style: TextStyle(fontSize: 30,color: Colors.blue[900],fontWeight: FontWeight.w500),))
                       ],)
                     )
                   ),
