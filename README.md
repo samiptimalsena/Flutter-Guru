@@ -1,16 +1,11 @@
-# guru
+# Some Screenshots of UI:
 
-A new Flutter project.
+<p float="center">
+  <img src="https://user-images.githubusercontent.com/51244494/80005044-ccb34f00-84e2-11ea-83fc-462201a1c394.png" height="400" width="200"/>
+  <img src="https://user-images.githubusercontent.com/51244494/80005485-5a8f3a00-84e3-11ea-9433-fe77480e677c.png" height="400" width="200"/>
+</p>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/51244494/80005796-cf627400-84e3-11ea-952c-42b1f7bea9a2.png" height="400" width="200"/>
+  <img src="https://user-images.githubusercontent.com/51244494/80005843-dbe6cc80-84e3-11ea-8f2d-ee1ac4f99101.png" height="400" width="200"/>
+  </p>
